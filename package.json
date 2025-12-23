@@ -1,0 +1,10 @@
+{
+  "name": "der-spiegel-translator",
+  "version": "1.0.0",
+  "description": "Der Spiegel Bluesky Translator",
+  "scripts": {
+    "install:docs": "cd docusaurus && npm install",
+    "build": "cd docusaurus && npm install && npm run build",
+    "start": "cd docusaurus && npm start"
+  }
+}
