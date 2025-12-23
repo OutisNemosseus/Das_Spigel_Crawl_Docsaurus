@@ -1,0 +1,96 @@
+.vocabContainer {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.vocabTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.vocabTable th,
+.vocabTable td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: 1px solid var(--ifm-table-border-color);
+}
+
+.vocabTable thead {
+  background-color: var(--ifm-table-head-background);
+}
+
+.germanHeader {
+  width: 30%;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+}
+
+.englishHeader {
+  width: 35%;
+  font-weight: 600;
+}
+
+.notesHeader {
+  width: 35%;
+  font-weight: 600;
+  color: var(--ifm-color-secondary);
+}
+
+.vocabRow:nth-child(even) {
+  background-color: var(--ifm-table-stripe-background);
+}
+
+.vocabRow:hover {
+  background-color: var(--ifm-hover-overlay);
+}
+
+.germanWord {
+  font-weight: 500;
+  color: var(--ifm-color-primary-dark);
+}
+
+.englishWord {
+  color: var(--ifm-font-color-base);
+}
+
+.notes {
+  font-size: 0.85rem;
+  color: var(--ifm-color-secondary-darkest);
+  font-style: italic;
+}
+
+/* Inline vocab word with tooltip */
+.vocabWord {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dotted var(--ifm-color-primary);
+}
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--ifm-color-emphasis-800);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 100;
+}
+
+.vocabWord:hover .tooltip {
+  visibility: visible;
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .germanWord {
+  color: var(--ifm-color-primary-light);
+}
+
+[data-theme='dark'] .notes {
+  color: var(--ifm-color-secondary-light);
+}

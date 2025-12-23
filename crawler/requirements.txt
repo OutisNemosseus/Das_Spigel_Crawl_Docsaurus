@@ -1,0 +1,4 @@
+atproto>=0.0.55
+deep-translator>=1.11.4
+schedule>=1.2.1
+python-dotenv>=1.0.0
