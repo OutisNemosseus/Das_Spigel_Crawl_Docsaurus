@@ -1,0 +1,15 @@
+# Render.com Blueprint for Der Spiegel Translator
+# https://render.com/docs/blueprint-spec
+
+services:
+  # Docusaurus Static Site
+  - type: web
+    name: der-spiegel-translator
+    runtime: static
+    buildCommand: cd docusaurus && npm install && npm run build
+    staticPublishPath: docusaurus/build
+    pullRequestPreviewsEnabled: true
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=3600

@@ -1,0 +1,53 @@
+# Daily crawler workflow
+# Fetches new posts from Der Spiegel's Bluesky, translates them,
+# and commits the generated docs. Render auto-deploys on push.
+
+name: Daily Crawler
+
+on:
+  schedule:
+    # Run daily at 6 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: crawler/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          cd crawler
+          pip install -r requirements.txt
+
+      - name: Run crawler
+        run: |
+          cd crawler
+          python main.py
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code docusaurus/docs/posts/ || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docusaurus/docs/posts/
+          git add crawler/fetched_posts.json || true
+          git commit -m "Auto-update: New posts from Der Spiegel $(date +'%Y-%m-%d')"
+          git push
